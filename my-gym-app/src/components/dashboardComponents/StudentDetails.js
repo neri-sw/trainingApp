@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import { getTrainingsForUser } from "../../services/firestore";
 import { addDoc, collection } from "firebase/firestore";
+import AddStudent from "./AddStudent";
 import { db } from "../../services/firebase";
 
 const StudentDetails = ({ selectedStudent }) => {
@@ -20,7 +21,7 @@ const StudentDetails = ({ selectedStudent }) => {
   useEffect(() => {
     const fetchTrainings = async () => {
       if (selectedStudent) {
-        const fetchedTrainings = await getTrainingsForUser(selectedStudent.id);
+        const fetchedTrainings = await getTrainingsForUser(selectedStudent.email);
         setTrainings(fetchedTrainings);
       }
     };
@@ -82,7 +83,7 @@ const StudentDetails = ({ selectedStudent }) => {
             activeTrainings.map((training, index) => (
               <Box
                 key={index}
-                sx={{ mb: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}
+                sx={{ maxWidth: 'fit-content', mb: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}
               >
                 <Typography variant="h6">{training.type}</Typography>
                 <Typography variant="body2">
@@ -233,7 +234,7 @@ const StudentDetails = ({ selectedStudent }) => {
           <Typography variant="h5" mb={2}>
             Agregar Nuevo Alumno
           </Typography>
-          {/* Aquí puedes agregar un formulario para crear un nuevo alumno */}
+            <AddStudent />
         </Box>
       )}
     </Box>
